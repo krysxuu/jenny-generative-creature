@@ -1,41 +1,39 @@
-let x, y; // Bunny position
-let bushOffset = 0; // Bush movement offset
-let fruits = []; // Fruits positions
+let x, y; 
+let bushOffset = 0; 
+let fruits = []; 
 let sparkle = false;
 
 function setup() {
-    let canvas = createCanvas(800, 500);
-    canvas.parent("p5-canvas-container"); // Attach canvas to the HTML container
-    x = width / 2;
-    y = height / 2;
-    
-  // Initialize fruits randomly for bushes
+  let canvas = createCanvas(800, 500);
+  canvas.parent("p5-canvas-container"); 
+  x = width / 2;
+  y = height / 2;
+  
   for (let i = 0; i < 20; i++) {
     fruits.push({ x: random(-30, 30), y: random(-20, 20), sparkle: false });
   }
 }
 
 function draw() {
-  // Background dark to light based on mouseY
+  // Background dark to light
   let bgColor = map(mouseY, 0, height, 20, 220);
   background(bgColor);
 
-  // Draw trees
+  //trees
   drawForestBackground();
 
-  // Bush movement
+  // Bushes moving lefy to right
   bushOffset += 1;
   if (bushOffset > width) bushOffset = 0;
 
-  // Draw bushes with fruits
   drawGlowingBushes();
 
-  // Draw Jenny the bunny
+  //Jenny
   moveJenny();
   drawJenny();
 }
 
-// Draw trees (Forest background)
+// Draw trees
 function drawForestBackground() {
   fill(100, 50, 0); // Brown trunks
 
@@ -44,8 +42,6 @@ function drawForestBackground() {
   rect(320, 180, 30, 320);
   rect(520, 220, 30, 280);
   rect(720, 190, 30, 310);
-
-  // Tree canopies (green leaves)
   fill(50, 200, 50);
   ellipse(135, 150, 150, 150);
   ellipse(335, 120, 180, 160);
@@ -53,13 +49,12 @@ function drawForestBackground() {
   ellipse(735, 130, 170, 150);
 }
 
-// Draw bushes with fruits
 function drawGlowingBushes() {
   fill(40, 150, 50);
-  let bushX = [150, 400, 650]; // Bush positions
+  let bushX = [150, 400, 650];
 
   for (let i = 0; i < bushX.length; i++) {
-    let bx = (bushX[i] + bushOffset) % width; // Horizontal movement
+    let bx = (bushX[i] + bushOffset) % width; // Horizontal
     ellipse(bx, 450, 120, 60); // Bush
 
     // Fruits
@@ -71,9 +66,8 @@ function drawGlowingBushes() {
   }
 }
 
-// Draw Jenny the bunny
+//Jenny
 function drawJenny() {
-  // Follow the mouse smoothly
   x += (mouseX - x) * 0.05;
   y += (mouseY - y) * 0.05;
 
@@ -90,9 +84,9 @@ function drawJenny() {
   ellipse(0, 40, 80, 100); // Body
   ellipse(0, 0, 70, 70); // Head
 
-  // Ears with wiggling effect
-  let earWiggle = sin(frameCount * 0.1) * 5; // Wiggle using sin
-  fill(r - 30, g - 30, b - 30); // Slightly darker ears
+  //wiggling effect
+  let earWiggle = sin(frameCount * 0.1) * 5; 
+  fill(r - 30, g - 30, b - 30); 
   ellipse(-20, -40 + earWiggle, 20, 60);
   ellipse(20, -40 - earWiggle, 20, 60);
 
@@ -104,22 +98,19 @@ function drawJenny() {
   ellipse(-10 + map(mouseX, 0, width, -2, 2), -5, 8, 8);
   ellipse(10 + map(mouseX, 0, width, -2, 2), -5, 8, 8);
   fill(255, 150, 150, 200);
-  ellipse(0, 5, 10, 5); // Blush
-
-  // Tail
+  ellipse(0, 5, 10, 5); // mouth
   fill(r - 20, g - 20, b - 20);
   ellipse(-30, 50, 20, 20);
 
   pop();
 }
 
-// Move Jenny smoothly
 function moveJenny() {
   x += (mouseX - x) * 0.05;
   y += (mouseY - y) * 0.05;
 }
 
-// Sparkling effect on fruits
+// click on fruitssssss
 function mousePressed() {
   sparkle = true;
   for (let i = 0; i < fruits.length; i++) {
